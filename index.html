@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Blog of WangZhixiong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="This is a place where i want to share">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog of WangZhixiong">
+<meta property="og:url" content="https://yunshucloud.github.io/blog/index.html">
+<meta property="og:site_name" content="Blog of WangZhixiong">
+<meta property="og:description" content="This is a place where i want to share">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="WangZhixiong">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Blog of WangZhixiong" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Blog of WangZhixiong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">Become Better</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yunshucloud.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-jvm-memory-model" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/09/07/jvm-memory-model/" class="article-date">
+  <time class="dt-published" datetime="2023-09-07T15:38:28.000Z" itemprop="datePublished">2023-09-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/09/07/jvm-memory-model/">jvm-memory-model</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、类加载机制"><a href="#一、类加载机制" class="headerlink" title="一、类加载机制"></a>一、类加载机制</h2><h3 id="1-类加载过程"><a href="#1-类加载过程" class="headerlink" title="1.类加载过程"></a>1.类加载过程</h3><img src="/blog/.io//2023/09/07/jvm-memory-model/classloader.png" class title="类加载过程">
+<h4 id="1-1-加载"><a href="#1-1-加载" class="headerlink" title="1.1 加载"></a>1.1 加载</h4><ul>
+<li>获取类的全限定类名，把经由源文件编译后的class字节码文件转为二进制流</li>
+<li>将二进制流中类的描述信息存入方法区，如创建时间，版本等，而非成员变量之类</li>
+<li>提取二进制流中的信息，最终转为java.lang.Class对象并将其存入堆中</li>
+</ul>
+<h4 id="1-2链接"><a href="#1-2链接" class="headerlink" title="1.2链接"></a>1.2链接</h4><ul>
+<li>验证：验证被加载类的正确性：如文件的格式，元数据等。<br></li>
+<li>准备：在方法区中为静态变量分配空间，并设置初始值。<br></li>
+<li>解析：把类符的号引用转为直接引用</li>
+</ul>
+<h4 id="1-3初始化"><a href="#1-3初始化" class="headerlink" title="1.3初始化"></a>1.3初始化</h4><ul>
+<li>为类的静态变量设置默认值，执行静态代码</li>
+</ul>
+<h3 id="2-类加载器"><a href="#2-类加载器" class="headerlink" title="2.类加载器"></a>2.类加载器</h3><ul>
+<li>类加载器实现类加载的过程<img src="/blog/.io//2023/09/07/jvm-memory-model/delegate.png" class title="delegate"></li>
+</ul>
+<h4 id="2-1分类"><a href="#2-1分类" class="headerlink" title="2.1分类"></a>2.1分类</h4><ul>
+<li>启动类加载器（Bootstrap classLoader）:主要负责加载JAVA中的一些核心类库，主要位于<JAVA_HOME>&#x2F;lib&#x2F;rt.jar中</JAVA_HOME></li>
+<li>拓展类加载器（Extension classLoader）:主要加载类中的一些拓展类，位于<JAVA_HOME>&#x2F;lib&#x2F;ext中，是启动类加载器的子类</JAVA_HOME></li>
+<li>应用类加载器（System classLoader）:主要用于加载CLASSPATH路径下我们自己写的类，是拓展类加载器的子类</li>
+</ul>
+<h4 id="2-2双亲委派模型"><a href="#2-2双亲委派模型" class="headerlink" title="2.2双亲委派模型"></a>2.2双亲委派模型</h4><ul>
+<li>如果一个类加载器收到类加载请求，首先判断是否已经加载过了，若没有加载则将这个请求委派（delegate）给父类的加载器，依次递归，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子类加载器才会尝试自己加载<br>默认类加载器的实现如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">synchronized</span> Class&lt;?&gt; loadClass(String name, <span class="type">boolean</span> resolve) &#123;</span><br><span class="line">  <span class="comment">// First, check if this class loader has directly defined the class or if the</span></span><br><span class="line">  <span class="comment">// JVM has initiated the class load with this class loader.</span></span><br><span class="line">  Class&lt;?&gt; result = findLoadedClass(name);</span><br><span class="line">  <span class="keyword">if</span> (result == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// Next, delegate to the parent.</span></span><br><span class="line">      result = getParent().loadClass(name);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">      <span class="comment">// Finally, search locally if the parent could not find the class.</span></span><br><span class="line">      result = findClass(ex);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// As a remnant of J2SE 1.0.2, link the class if a subclass of the class</span></span><br><span class="line">  <span class="comment">// loader class requested it (the JVM never calls the method,</span></span><br><span class="line">  <span class="comment">// loadClass(String) passes false, and the protected access modifier prevents</span></span><br><span class="line">  <span class="comment">// callers from passing true).</span></span><br><span class="line">  <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">    resolveClass(result);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p><strong>如何打破双亲委派机制</strong><br><br><em>自定义加载类继承ClassLoader类，重写loadClass方法</em></p>
+<h2 id="二、JVM内存区域划分"><a href="#二、JVM内存区域划分" class="headerlink" title="二、JVM内存区域划分"></a>二、JVM内存区域划分</h2><ul>
+<li>线程独享区<ul>
+<li>程序计数器</li>
+<li>虚拟机栈</li>
+<li>本地方法区</li>
+</ul>
+</li>
+<li>线程共享区<ul>
+<li>堆内存</li>
+<li>方法区</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>JVM进行内存分区的原因？</strong><br>    <br><em>提高垃圾回收效率</em></p>
+<h2 id="三、JVM五大分区"><a href="#三、JVM五大分区" class="headerlink" title="三、JVM五大分区"></a>三、JVM五大分区</h2><h3 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h3><p>在多线程并行运行时，微观上仍然是串行运行的，只是在很小的时间片内进行线程的切换，此时记录每个线程的运行的位置就至关重要，程序计数器就实现这个功能。</p>
+<h3 id="2-本地方法栈"><a href="#2-本地方法栈" class="headerlink" title="2.本地方法栈"></a>2.本地方法栈</h3><p>存放非java的数据</p>
+<h3 id="3-虚拟机栈"><a href="#3-虚拟机栈" class="headerlink" title="3.虚拟机栈"></a>3.虚拟机栈</h3><p>存放当前线程中所声明的变量，包括基本数据类型的数据和引用数据类型的引用（在堆中的地址）</p>
+<h4 id="3-1栈帧"><a href="#3-1栈帧" class="headerlink" title="3.1栈帧"></a>3.1栈帧</h4><ul>
+<li>一个线程中可能有多个方法，不同方法又可能有相同的变量名，为了区别，每一个方法都对应一个栈帧，栈帧中存放<ol>
+<li>局部变量</li>
+<li>操作数栈</li>
+<li>常量数据的引用（例如 final int b&#x3D;10 的地址）</li>
+<li>方法返回值</li>
+</ol>
+</li>
+</ul>
+<p><strong>为什么虚拟机栈要称为栈？</strong><br><br><em>一个线程中含有多个方法，当其中一个方法A调用另一个方法B时，就需要把主动调用的那个方法A压入栈中，利用栈的先进后出的原则，在被调用方法B结束后继续运行A方法。</em><br><br><br><strong>为什么a&#x3D;a+1效率要低于a++的效率？</strong><br><br>a++是直接在局部变量中操作的。a&#x3D;a+1需要先在局部变量中取到a的值,然后在操作数栈中操作。</p>
+<h3 id="4-方法区"><a href="#4-方法区" class="headerlink" title="4.方法区"></a>4.方法区</h3><p>在java8之后，方法区又称为元空间（MetaSpace），方法区在逻辑上属于堆的一部分，但一些具体机制和堆有区别，如：一些JVM的方法是可以不进行垃圾回收的，关闭JVM时才会释放方法区的内存。所以方法区还有一个别名叫非堆，目的是和堆分开。<br>方法区会存储</p>
+<ul>
+<li>类信息–版本号、创建时间等(如果加载大量class文件，会造成方法区内存溢出，如一个tomcat运行20-30个项目)</li>
+<li>静态变量</li>
+<li>常量（JDK8之后不存放字符串常量 因为字符创常量容易早造成内存泄露）</li>
+</ul>
+<h3 id="5-堆内存"><a href="#5-堆内存" class="headerlink" title="5.堆内存**"></a>5.堆内存**</h3><p>java将对象存放在堆内存中，堆内存所需要的空间是比较大的。对于JVM调优主要是针对堆内存的调优，比如分配堆内存的空间。</p>
+<h2 id="四、JVM执行引擎"><a href="#四、JVM执行引擎" class="headerlink" title="四、JVM执行引擎"></a>四、JVM执行引擎</h2><p>执行引擎是java虚拟机核心的组成部分之一。JVM将class字节码文件加载到内存，但字节码文件不能直接运行在操作系统上，为了执行内存中的字节码文件指令，执行引擎（Execution Engine）就要将字节码指令解释&#x2F;编译为对应平台上的本地机器指令。<br><br>执行引擎的翻译过程有两种：</p>
+<ol>
+<li>使用解释器</li>
+<li>使用即时编译器</li>
+</ol>
+<h3 id="1-解释器与即时编译器"><a href="#1-解释器与即时编译器" class="headerlink" title="1.解释器与即时编译器"></a>1.解释器与即时编译器</h3><h4 id="解释器"><a href="#解释器" class="headerlink" title="解释器"></a>解释器</h4><p>把字节码看成脚本，根据字节码中的指令，由JVM去调用实际的本地方法。</p>
+<h4 id="即时编译器"><a href="#即时编译器" class="headerlink" title="即时编译器"></a>即时编译器</h4><p>把执行过程中发现的热点位置，由jvm内部的即时编译器编译为本地机器码直接执行</p>
+<h4 id="二者的区别"><a href="#二者的区别" class="headerlink" title="二者的区别"></a>二者的区别</h4><p>把源代码编译成和本地i机器平台相关的机器语言，即适用与本机的机器码，只能在本机上运行，叫即时编译。<br><br>编译成一种中间的字节码，与机器平台无关的，这个编译后的字节码可以在很多处理器上运行，叫解释型的</p>
+<h3 id="五、堆内存模型"><a href="#五、堆内存模型" class="headerlink" title="五、堆内存模型"></a>五、堆内存模型</h3><h4 id="1-java对象内存布局"><a href="#1-java对象内存布局" class="headerlink" title="1.java对象内存布局"></a>1.java对象内存布局</h4><img src="/blog/.io//2023/09/07/jvm-memory-model/javaobject.png" class title="java_object">
+<ul>
+<li><strong>对象头</strong><table>
+<thead>
+<tr>
+<th align="center">name</th>
+<th align="center">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">MarkWord</td>
+<td align="center">一系列标记位（哈希码、分代年龄、锁状态标记等），在 64 位系统中占8 字节。</td>
+</tr>
+<tr>
+<td align="center">ClassPoint</td>
+<td align="center">对象对应的类信息的内存地址，在 64 位系统中占 8 字节。</td>
+</tr>
+<tr>
+<td align="center">Length</td>
+<td align="center">数组对象特有，表示数组长度，占 4字节</td>
+</tr>
+</tbody></table>
+</li>
+<li><strong>实例数据</strong>–包含了对象的所有成员变量，大小由变量类型决定。<table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>1字节</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>1字节</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2字节</td>
+</tr>
+<tr>
+<td>char</td>
+<td>2~3字节</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4字节</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4字节</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8字节</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8字节</td>
+</tr>
+<tr>
+<td>引用数据类型</td>
+<td>8字节</td>
+</tr>
+</tbody></table>
+</li>
+<li><strong>对齐填充</strong><br>将对象大小填充为 8 字节的整数倍</li>
+</ul>
+<h4 id="2-JVM内存溢出和垃圾回收机制"><a href="#2-JVM内存溢出和垃圾回收机制" class="headerlink" title="2.JVM内存溢出和垃圾回收机制"></a>2.JVM内存溢出和垃圾回收机制</h4><ol>
+<li>垃圾回收的意义：避免出现内存溢出（Out Of Memory），简称OOM</li>
+<li>堆内存分区的意义：<ul>
+<li>提高搜索垃圾的效率</li>
+<li>垃圾回收后可以更好的利用空间，存放大对象</li>
+<li>尽可能减少GC（Garbage Collection）次数</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-堆内存的划分"><a href="#3-堆内存的划分" class="headerlink" title="3.堆内存的划分"></a>3.堆内存的划分</h4><ul>
+<li>老年代</li>
+</ul>
+<p>对象会优先分配到新生代内存中，每次 GC 后没有回收的对象年龄加 1，年龄到<br>15 还没有被回收，对象会存放到老年代内存中；如果对象较大，超过新生代内存的一<br>半，对象也会存放到老年代区域</p>
+<ul>
+<li>新生代<ul>
+<li>Eden区</li>
+<li>Suvivor区（两个）</li>
+</ul>
+</li>
+</ul>
+<p>为了<strong>减少young区垃圾回收后的空间碎片</strong>（非连续的地址空间不能存储大对象），新生代又分为Eden区和两个Survivor<br>区，且始终有一个 Suvivor 区保持闲置。对象会先存放到 Eden 区当中，Eden 区空间<br>满了之后会进行 young 区的垃圾回收，之后将 young 区所有存活的对象复制到闲置<br>的 Suvivor 区中，并清空 Eden 区和正在使用的 Survivor 区。</p>
+<p><strong>垃圾回收前</strong></p>
+<img src="/blog/.io//2023/09/07/jvm-memory-model/heap1.jpg" class title="heap1"><br>
+<p><strong>垃圾回收后</strong></p>
+<img src="/blog/.io//2023/09/07/jvm-memory-model/heap2.jpg" class title="heap2">
+
+<h4 id="4-YoungGC-和-OldGC"><a href="#4-YoungGC-和-OldGC" class="headerlink" title="4.YoungGC 和 OldGC"></a>4.YoungGC 和 OldGC</h4><ul>
+<li>YoungGC</li>
+</ul>
+<p>新生代区域的垃圾回收称之为 YoungGC，也叫 MinorGC，Eden 区满后会触发<br>YoungGC</p>
+<ul>
+<li>OldGC</li>
+</ul>
+<p>老年代区域的垃圾回收称之为 OldGC，也叫 MajorGC，OldGC 非常浪费性能，<br>所以我们的 JVM 调优要尽可能减少 OldGC 的次数， OldGC 往往伴随着 YoungGC。<br>YoungGC+OldGC &#x3D; FullG</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmc396rb0001ilk69b0zdxl4" data-title="jvm-memory-model" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-myfirstblog" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/09/07/myfirstblog/" class="article-date">
+  <time class="dt-published" datetime="2023-09-07T15:22:44.000Z" itemprop="datePublished">2023-09-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/09/07/myfirstblog/">myfirstblog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="This-is-my-first-blog"><a href="#This-is-my-first-blog" class="headerlink" title="This is my first blog"></a>This is my first blog</h1><p>First,Welcome all of you to here. It’s my honour that i maybe give you guys a little suggestions.<br>You are my fellow.Let’s growing together.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/myfirstblog/" data-id="clmc396rc0002ilk668bw0wrv" data-title="myfirstblog" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/09/07/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2023-09-07T13:54:00.000Z" itemprop="datePublished">2023-09-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/09/07/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clmc396r90000ilk6f5awc82f" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2023/09/07/jvm-memory-model/">jvm-memory-model</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2023/09/07/myfirstblog/">myfirstblog</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2023/09/07/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 WangZhixiong<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
