@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/heap1.jpg">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/heap2.jpg">
 <meta property="article:published_time" content="2023-09-07T15:38:28.000Z">
-<meta property="article:modified_time" content="2023-09-09T14:36:38.077Z">
+<meta property="article:modified_time" content="2023-09-10T06:57:24.553Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -282,11 +282,22 @@
 <li>OldGC</li>
 </ul>
 <p>老年代区域的垃圾回收称之为 OldGC，也叫 MajorGC，OldGC 非常浪费性能，<br>所以我们的 JVM 调优要尽可能减少 OldGC 的次数， OldGC 往往伴随着 YoungGC。<br>YoungGC+OldGC &#x3D; FullG</p>
+<h2 id="五、垃圾回收机制"><a href="#五、垃圾回收机制" class="headerlink" title="五、垃圾回收机制"></a>五、垃圾回收机制</h2><blockquote>
+<p>堆内存模型设计是为了提高垃圾回收的效率，那么要如何判断一个对象是垃圾？</p>
+</blockquote>
+<ul>
+<li>引用计数法(java中未使用，在python中使用)<br>如果要操作对象，必须通过引用来进行。如果一个对象没有任何引用与之关联，则说明该对象基本不太可能在其他地方被使用到。那么这个对象就成为可被回收的对象了。这种方式简单，效率高，但是它无法解决循环引用的问题。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyObject</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span> <span class="variable">ref</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">MyObject</span> <span class="variable">myObject1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyObject</span>();</span><br><span class="line">        <span class="type">MyObject</span> <span class="variable">myObject2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyObject</span>();</span><br><span class="line">        myObject1.ref = myObject2;</span><br><span class="line">        myObject2.ref = myObject1;</span><br><span class="line">        myObject1 = <span class="literal">null</span>;</span><br><span class="line">        myObject2 = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从上面的代码可以轻易地发现myObject1与myObject2互为引用，我们知道如果采用引用计数法，myObject1和myObject2将不能被回收，因为他们的引用计数无法为零。</p>
+</blockquote>
+</li>
+<li>可达性分析</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmc4qrr600015ok61jy0fpk6" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmd3s2tl0001e2gudmyz7msf" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
