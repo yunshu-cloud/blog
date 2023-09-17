@@ -29,8 +29,12 @@
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/region.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/G1.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/vmoption1.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/vmoption2.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/comp.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/int.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/mixed.png">
 <meta property="article:published_time" content="2023-09-07T15:38:28.000Z">
-<meta property="article:modified_time" content="2023-09-11T06:00:52.258Z">
+<meta property="article:modified_time" content="2023-09-11T06:22:52.703Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -371,13 +375,44 @@
 <li>如果停顿时间不能超过1秒，使用并发收集器</li>
 </ul>
 <h2 id="六、JVM参数设置"><a href="#六、JVM参数设置" class="headerlink" title="六、JVM参数设置"></a>六、JVM参数设置</h2><h3 id="1-JVM参数设置方式"><a href="#1-JVM参数设置方式" class="headerlink" title="1.JVM参数设置方式"></a>1.JVM参数设置方式</h3><ul>
-<li>Intellij idea:在运行的VM Option中设置<img src="/blog/2023/09/07/jvm-memory-model/vmoption1.png" class title="vmoption1"></li>
+<li><p>Intellij idea:在运行的VM Option中设置</p>
+<img src="/blog/2023/09/07/jvm-memory-model/vmoption1.png" class title="vmoption1">
+<img src="/blog/2023/09/07/jvm-memory-model/vmoption2.png" class title="vmoption2">
+</li>
+<li><p>tomcat：进入 Tomcat 的 bin 目录下，打开文件 catalina.bat&#x2F;catalina.sh，修改如下参数</p>
+<blockquote>
+<p>set “JAVA_OPTS&#x3D;参数”</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-JVM参数类型"><a href="#2-JVM参数类型" class="headerlink" title="2.JVM参数类型"></a>2.JVM参数类型</h3><ol>
+<li>标准参数：不随jdk版本变化而变化的参数，如：-version</li>
+<li>-X参数：不能保证所有的JVM都支持，如：</li>
+</ol>
+<ul>
+<li>-Xcomp:使用即时编译器执行字节码文件  <img src="/blog/2023/09/07/jvm-memory-model/comp.png" class title="comp"></li>
+<li>-Xint:使用解释器执行字节码文件   <img src="/blog/2023/09/07/jvm-memory-model/int.png" class title="int"></li>
+<li>-Xmixed:混合模式，先使用解释器，即时编译器编译好后执行机器指令   <img src="/blog/2023/09/07/jvm-memory-model/mixed.png" class title="mixed"></li>
+</ul>
+<ol start="3">
+<li>-XX参数：不能保证所有的JVM都支持</li>
+</ol>
+<ul>
+<li>Boolean类型参数<ul>
+<li>-XX:+UseG1GC:使用G1收集器</li>
+<li>-XX:-UseG1GC:不使用G1收集器</li>
+</ul>
+</li>
+<li>Key-Value类型参数<ul>
+<li>-XX:MaxTenuringThreshold&#x3D;15:对象年龄达到15就会进入老年代</li>
+</ul>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmeh7xdu0001qhk690oz1k80" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmna0k4m0000ec057xgm5vlg" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -386,6 +421,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/blog/2023/09/17/mysqlOptimize/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mysqlOptimize
+        
+      </div>
+    </a>
   
   
     <a href="/blog/2023/09/07/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -426,6 +470,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2023/09/17/mysqlOptimize/">mysqlOptimize</a>
+          </li>
         
           <li>
             <a href="/blog/2023/09/07/jvm-memory-model/">jvm调优</a>
