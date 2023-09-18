@@ -137,11 +137,91 @@
 </ol>
 </li>
 </ul>
+<h2 id="三、Mysql执行计划Explain"><a href="#三、Mysql执行计划Explain" class="headerlink" title="三、Mysql执行计划Explain"></a>三、Mysql执行计划Explain</h2><h3 id="1-命令简介"><a href="#1-命令简介" class="headerlink" title="1.命令简介"></a>1.命令简介</h3><p><strong>执行示例</strong></p>
+<ul>
+<li><blockquote>
+<p>explain select * from his_care_history hch left join his_care_order hco on hco.patient_name &#x3D; hch.patient_name </p>
+</blockquote>
+<img src="/blog/2023/09/17/mysqlOptimize/explain.png" class title="explain">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>编号</td>
+</tr>
+<tr>
+<td>select_type</td>
+<td>查询类型</td>
+</tr>
+<tr>
+<td>table</td>
+<td>表名</td>
+</tr>
+<tr>
+<td>partitions</td>
+<td>分区</td>
+</tr>
+<tr>
+<td>type</td>
+<td>类型</td>
+</tr>
+<tr>
+<td>possible_keys</td>
+<td>可能用到的索引</td>
+</tr>
+<tr>
+<td>key</td>
+<td>实际使用的索引</td>
+</tr>
+<tr>
+<td>key_len</td>
+<td>实际使用的索引的长度</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>表之间的引用</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>扫描的行数</td>
+</tr>
+<tr>
+<td>filtered</td>
+<td>过滤</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>额外的信息</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="Sql及索引优化"><a href="#Sql及索引优化" class="headerlink" title="Sql及索引优化"></a>Sql及索引优化</h2><ul>
+<li><p><strong>排序字段加索引</strong></p>
+<blockquote>
+<p>对查询进行优化，要尽量避免全表扫描，首先应考虑在where和order by涉及的列上建立索引</p>
+</blockquote>
+</li>
+<li><p>where条件中or两边的字段没有索引时尽量少用or</p>
+<blockquote>
+<p>or两边的字段中如果有一个不是索引字段会造成查询不走索引</p>
+</blockquote>
+<ul>
+<li>where条件后字段建立索引 type的值是const,查询效率高</li>
+<li>where条件后字段没有建立索引 type的值为ALL,变成全表扫描</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clmna0k4q0002ec05dy7shwmp" data-title="mysqlOptimize" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clmojni050002l8053a26apgn" data-title="mysqlOptimize" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -464,7 +544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmna0k4m0000ec057xgm5vlg" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmojni040001l805ff5k5iym" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -515,7 +595,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clmna0k4p0001ec05d228edgw" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clmojni020000l805a2ur41iz" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
