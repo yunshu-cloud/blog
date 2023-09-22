@@ -80,6 +80,44 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-rabbitmq" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/09/22/rabbitmq/" class="article-date">
+  <time class="dt-published" datetime="2023-09-22T13:45:17.000Z" itemprop="datePublished">2023-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/09/22/rabbitmq/">rabbitmq</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一、Docker安装Rabbitmq"><a href="#一、Docker安装Rabbitmq" class="headerlink" title="一、Docker安装Rabbitmq"></a>一、Docker安装Rabbitmq</h1><img src="/blog/2023/09/22/rabbitmq/rabbitmqdocker.png" class>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clmunw6ie0003ph059jcr5u1x" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-mysqlOptimize" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blog/2023/09/17/mysqlOptimize/" class="article-date">
@@ -94,7 +132,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/2023/09/17/mysqlOptimize/">mysqlOptimize</a>
+      <a class="p-name article-title" href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
     </h1>
   
 
@@ -102,7 +140,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="Mysql优化"><a href="#Mysql优化" class="headerlink" title="Mysql优化"></a>Mysql优化</h1><h2 id="一、sql性能下降的原因"><a href="#一、sql性能下降的原因" class="headerlink" title="一、sql性能下降的原因"></a>一、sql性能下降的原因</h2><ul>
+        <h2 id="一、sql性能下降的原因"><a href="#一、sql性能下降的原因" class="headerlink" title="一、sql性能下降的原因"></a>一、sql性能下降的原因</h2><ul>
 <li>外部原因<ol>
 <li>计算机磁盘空间占用较大，服务器cpu性能及内存不足</li>
 </ol>
@@ -201,8 +239,53 @@
 </tbody></table>
 </li>
 </ul>
-<h2 id="Sql及索引优化"><a href="#Sql及索引优化" class="headerlink" title="Sql及索引优化"></a>Sql及索引优化</h2><ul>
-<li><p><strong>排序字段加索引</strong></p>
+<h3 id="2-索引type详解"><a href="#2-索引type详解" class="headerlink" title="2.索引type详解"></a>2.索引type详解</h3><p>注：mysql默认存储引擎innodb只显式支持B-Tree( 从技术上来说是B+Tree)索引。</p>
+<blockquote>
+<p>性能 高—-&gt;低<br>system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;ALL</p>
+</blockquote>
+<p><em>其中system、const只是理想类型，基本达不到</em><br><br><em>调优后实际能优化到ref&gt;range这两个类型，通俗来讲就是查询的条件要是索引</em></p>
+<table>
+<thead>
+<tr>
+<th>type类型</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>system</td>
+<td>整张表只有一条数据</td>
+</tr>
+<tr>
+<td>const</td>
+<td>用于Primary key 或 unique索引且结果只有一条数据</td>
+</tr>
+<tr>
+<td>eq_ref</td>
+<td>使用索引且返回结果唯一非空</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>使用索引对返回结果无要求</td>
+</tr>
+<tr>
+<td>range</td>
+<td>使用索引且使用范围查询（where &lt;&gt; in等）</td>
+</tr>
+<tr>
+<td>index</td>
+<td>查询被声明是索引的那一列</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>全表查询</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhaokunbokeyuan256/p/10761548.html">索引type详解</a></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="四、Sql及索引优化"><a href="#四、Sql及索引优化" class="headerlink" title="四、Sql及索引优化"></a>四、Sql及索引优化</h2><ol>
+<li><p>排序字段加索引</p>
 <blockquote>
 <p>对查询进行优化，要尽量避免全表扫描，首先应考虑在where和order by涉及的列上建立索引</p>
 </blockquote>
@@ -216,12 +299,87 @@
 <li>where条件后字段没有建立索引 type的值为ALL,变成全表扫描</li>
 </ul>
 </li>
+<li><p>区分in与exits</p>
+<ul>
+<li>in:当子查询的数量少的时候</li>
+<li>exits:当外层查询的数据少，内层查询数据量大的时候</li>
 </ul>
+</li>
+<li><p>不建议使用%前缀模糊查询</p>
+<blockquote>
+<p>“%name”或者LIKE”%name”,这种查询会导致索引失效而进行全表扫描<br>但是可以使用LIKE”name%”，type的值为range</p>
+</blockquote>
+</li>
+<li><p>避免在where子句中对字段进行表达式操作</p>
+</li>
+<li><p>注意范围查询语句</p>
+<blockquote>
+<p>对于联合索引来说，如果存在范围查询，会造成后面的索引字段失效</p>
+</blockquote>
+</li>
+<li><p>使用join优化</p>
+</li>
+</ol>
+<ul>
+<li>什么是驱动表？</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A left join B</td>
+<td>A为驱动表</td>
+</tr>
+<tr>
+<td>B right join A</td>
+<td>B为驱动表</td>
+</tr>
+<tr>
+<td>A inner join</td>
+<td>mysql自动找出数据少的表作为驱动表</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>合理利用索引</p>
+<blockquote>
+<p>被驱动表的索引字段作为on的限制字段</p>
+</blockquote>
+</li>
+<li><p>利用小表驱动大表</p>
+<blockquote>
+<p>减少嵌套循环中的循环次数，以减少IO总量及CPU运算的次数</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="五、系统参数调优"><a href="#五、系统参数调优" class="headerlink" title="五、系统参数调优"></a>五、系统参数调优</h2><h3 id="1-公共参数"><a href="#1-公共参数" class="headerlink" title="1.公共参数"></a>1.公共参数</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>max_connections &#x3D; 1000</td>
+<td>同时处理最大连接数，推荐设置最大连接数是上线连接数的80%</td>
+</tr>
+<tr>
+<td>sort_buffer_size &#x3D; 2M</td>
+<td>查询排序时缓冲区大小，只对order by和group by起作用，可增大此值为16M</td>
+</tr>
+<tr>
+<td>open_files_limit &#x3D; 10240</td>
+<td>Mysql打开的文件描述符限制，默认最小1024</td>
+</tr>
+</tbody></table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clmojni050002l8053a26apgn" data-title="mysqlOptimize" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clmunw6ie0002ph0570qx36za" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -544,7 +702,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmojni040001l805ff5k5iym" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clmunw6id0001ph05ew9k6og9" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -595,7 +753,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clmojni020000l805a2ur41iz" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clmunw6ib0000ph05gb1591ta" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -638,7 +796,11 @@
       <ul>
         
           <li>
-            <a href="/blog/2023/09/17/mysqlOptimize/">mysqlOptimize</a>
+            <a href="/blog/2023/09/22/rabbitmq/">rabbitmq</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
           </li>
         
           <li>
