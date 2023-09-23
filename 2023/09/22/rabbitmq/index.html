@@ -34,8 +34,9 @@
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/mailrouter.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/messagerouter.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/stationrouter.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/topics.png">
 <meta property="article:published_time" content="2023-09-22T13:45:17.000Z">
-<meta property="article:modified_time" content="2023-09-22T15:31:29.528Z">
+<meta property="article:modified_time" content="2023-09-23T02:47:54.608Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -237,11 +238,21 @@
 <img src="/blog/2023/09/22/rabbitmq/messagerouter.png" class>
 <img src="/blog/2023/09/22/rabbitmq/stationrouter.png" class></li>
 </ol>
+<h2 id="2-6-通配符模式（Topics）"><a href="#2-6-通配符模式（Topics）" class="headerlink" title="2.6 通配符模式（Topics）"></a>2.6 通配符模式（Topics）</h2><ul>
+<li><p>通配符模式(Topic)是在路由模式的基础上，给队列绑定带通配符的路由关键字，只要消息的RoutingKey能实现通配符匹配，就会将消息转发到该队列。通配符模式比路由模式更灵活，使用topic交换机。</p>
+</li>
+<li><p>通配符规则：</p>
+<ul>
+<li>消息设置RoutingKey时，RoutingKey由多个单词构成，中间以.分割。</li>
+<li>队列设置RoutingKey时，#可以匹配任意多个单词，*可以匹配任意一个单词。</li>
+</ul>
+  <img src="/blog/2023/09/22/rabbitmq/topics.png" class></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clmurl8rz0003e1057gvthdjb" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clmvfl17k000369050snud803" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
