@@ -4,18 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>Archives | Blog of WangZhixiong</title>
+  <title>hasCodeAndEquals | Blog of WangZhixiong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="This is a place where i want to share">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog of WangZhixiong">
-<meta property="og:url" content="https://yunshucloud.github.io/blog/archives/index.html">
+  <meta name="description" content="equals方法和hasCode方法之间的关系equals方法  hasCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hasCodeAndEquals">
+<meta property="og:url" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/index.html">
 <meta property="og:site_name" content="Blog of WangZhixiong">
-<meta property="og:description" content="This is a place where i want to share">
+<meta property="og:description" content="equals方法和hasCode方法之间的关系equals方法  hasCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/equals.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/hasCode.png">
+<meta property="article:published_time" content="2023-10-18T05:54:32.000Z">
+<meta property="article:modified_time" content="2023-10-18T06:37:09.779Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/equals.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="Blog of WangZhixiong" type="application/atom+xml">
   
@@ -78,115 +83,71 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2023/10/18/hasCodeAndEquals/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-10-18T05:54:32.000Z" itemprop="datePublished">Oct 18</time>
+        <section id="main"><article id="post-hasCodeAndEquals" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/10/18/hasCodeAndEquals/" class="article-date">
+  <time class="dt-published" datetime="2023-10-18T05:54:32.000Z" itemprop="datePublished">2023-10-18</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2023/10/18/hasCodeAndEquals/">hasCodeAndEquals</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      hasCodeAndEquals
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2023/09/22/rabbitmq/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-09-22T13:45:17.000Z" itemprop="datePublished">Sep 22</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2023/09/22/rabbitmq/">rabbitmq</a>
-    </h1>
-  
+        <h1 id="equals方法和hasCode方法之间的关系"><a href="#equals方法和hasCode方法之间的关系" class="headerlink" title="equals方法和hasCode方法之间的关系"></a>equals方法和hasCode方法之间的关系</h1><h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/equals.png" class>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2023/09/17/mysqlOptimize/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-09-17T09:40:30.000Z" itemprop="datePublished">Sep 17</time>
-</a>
+<h3 id="hasCode方法"><a href="#hasCode方法" class="headerlink" title="hasCode方法"></a>hasCode方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/hasCode.png" class>
+
+<ul>
+<li>A. <ul>
+<li>只要equals方法没有被重写，同一个对象的hasCode值就不会有变化</li>
+<li>同一个对象，hasCode值不保证在不同执行情况下结果相同</li>
+</ul>
+</li>
+<li>B. <ul>
+<li>只要equals方法判断两个对象相同，他们的hasCode值必然相同</li>
+</ul>
+</li>
+<li>C.<ul>
+<li>两个对象不相同时，不保证他们的hasCode值一定不同</li>
+</ul>
+</li>
+</ul>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2023/09/07/jvm-memory-model/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-09-07T15:38:28.000Z" itemprop="datePublished">Sep 7</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clnvdsqx800001sk61z0s23ed" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2023/09/07/jvm-memory-model/">jvm调优</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2023/09/07/hello-world/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-09-07T13:54:00.000Z" itemprop="datePublished">Sep 7</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2023/09/07/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2023/09/22/rabbitmq/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">rabbitmq</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
