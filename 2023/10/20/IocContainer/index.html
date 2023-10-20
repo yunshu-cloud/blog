@@ -6,16 +6,22 @@
   
   <title>IocContainer | Blog of WangZhixiong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="一、Spring Ioc容器和Beans的介绍 Ioc(控制反转)也被称为DI(依赖注入)，它是一个定义对象的依赖">
+  <meta name="description" content="一、Spring Ioc容器和Beans的介绍(Introduction to the Spring Ioc Container and Beans)1.IocIoc(控制反转)也被称为DI(依赖注入)。它是一个过程，此过程定义了对象之间的依赖关系，即一个对象中需要另一个对象协作的关系。此关系是通过构造参数，工厂参数或者对象实例中被set的属性建立的。此过程要在对象实例化之后或者对象由工厂返回之后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IocContainer">
 <meta property="og:url" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/index.html">
 <meta property="og:site_name" content="Blog of WangZhixiong">
-<meta property="og:description" content="一、Spring Ioc容器和Beans的介绍 Ioc(控制反转)也被称为DI(依赖注入)，它是一个定义对象的依赖">
+<meta property="og:description" content="一、Spring Ioc容器和Beans的介绍(Introduction to the Spring Ioc Container and Beans)1.IocIoc(控制反转)也被称为DI(依赖注入)。它是一个过程，此过程定义了对象之间的依赖关系，即一个对象中需要另一个对象协作的关系。此关系是通过构造参数，工厂参数或者对象实例中被set的属性建立的。此过程要在对象实例化之后或者对象由工厂返回之后">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/Ioc.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/mvnRepo.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/mvnRepoV.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/mvnRepoM.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/mvnIoc.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/BeanFactory.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/ApplicationContext.png">
 <meta property="article:published_time" content="2023-10-20T07:24:51.000Z">
-<meta property="article:modified_time" content="2023-10-20T07:55:34.834Z">
+<meta property="article:modified_time" content="2023-10-20T13:56:32.542Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -104,14 +110,34 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="一、Spring-Ioc容器和Beans的介绍"><a href="#一、Spring-Ioc容器和Beans的介绍" class="headerlink" title="一、Spring Ioc容器和Beans的介绍"></a>一、Spring Ioc容器和Beans的介绍</h1><blockquote>
-<p>Ioc(控制反转)也被称为DI(依赖注入)，它是一个定义对象的依赖</p>
-</blockquote>
+        <h1 id="一、Spring-Ioc容器和Beans的介绍-Introduction-to-the-Spring-Ioc-Container-and-Beans"><a href="#一、Spring-Ioc容器和Beans的介绍-Introduction-to-the-Spring-Ioc-Container-and-Beans" class="headerlink" title="一、Spring Ioc容器和Beans的介绍(Introduction to the Spring Ioc Container and Beans)"></a>一、Spring Ioc容器和Beans的介绍(Introduction to the Spring Ioc Container and Beans)</h1><h2 id="1-Ioc"><a href="#1-Ioc" class="headerlink" title="1.Ioc"></a>1.Ioc</h2><p>Ioc(控制反转)也被称为DI(依赖注入)。<br>它是一个过程，此过程定义了对象之间的依赖关系，即一个对象中需要另一个对象协作的关系。<br>此关系是通过构造参数，工厂参数或者对象实例中被set的属性建立的。<br>此过程要在对象实例化之后或者对象由工厂返回之后进行，即对象要先被创建在能定义他们的依赖关系。</p>
 <img src="/blog/2023/10/20/IocContainer/Ioc.png" class>
+
+<h2 id="2-BeanFactory-和-ApplicationContext"><a href="#2-BeanFactory-和-ApplicationContext" class="headerlink" title="2. BeanFactory 和 ApplicationContext"></a>2. BeanFactory 和 ApplicationContext</h2><p><strong>org.springframework.beans</strong> 和 <strong>org.springframework.context</strong> 两个包是Ioc容器的基础。<br>通过在<a target="_blank" rel="noopener" href="https://mvnrepository.com/">https://mvnrepository.com</a> 网址搜索上文的两个包</p>
+<ol>
+<li>打开网址<img src="/blog/2023/10/20/IocContainer/mvnRepo.png" class></li>
+<li>选择版本<img src="/blog/2023/10/20/IocContainer/mvnRepoV.png" class></li>
+<li>复制依赖<img src="/blog/2023/10/20/IocContainer/mvnRepoM.png" class></li>
+<li>项目工程依赖<img src="/blog/2023/10/20/IocContainer/mvnIoc.png" class></li>
+</ol>
+<p>BeanFacotry接口提供了管理任何对象类型的配置机制<br>ApplicationContext是BeanFactory的子接口。它增加了：</p>
+<ul>
+<li>更便捷的Spring Aop特征的整合</li>
+<li>消息资源的处理(在国际化的使用中)</li>
+<li>事务发布</li>
+<li>应用层的特殊上下文context，例如WebApplicationContext，是为使用web应用设计的</li>
+</ul>
+<ol>
+<li>BeanFactory<img src="/blog/2023/10/20/IocContainer/BeanFactory.png" class></li>
+<li>ApplicationContext<img src="/blog/2023/10/20/IocContainer/ApplicationContext.png" class></li>
+</ol>
+<h3 id="3-Beans"><a href="#3-Beans" class="headerlink" title="3. Beans"></a>3. Beans</h3><p>在Spring中,构成应用骨架的对象或者被Spring Ioc容器管理的对象称为beans.</p>
+<h1 id="二、容器简介（Container-Overview）"><a href="#二、容器简介（Container-Overview）" class="headerlink" title="二、容器简介（Container Overview）"></a>二、容器简介（Container Overview）</h1><p>org.springframework.context.ApplicationContext 接口代表了Spring Ioc容器，并且负责实例化beans,配置bean,集成(assemble)。容器通过读取配置元数据(configuration metedata)来获取一些指令，这些指令主要是指明需要实例化哪个对象，配置哪个对象以及集成（assemble）哪个对象。配置元数据（configuration metedata）的形式有三种，第一，xml文件形式，第二，java注解形式，第三，java代码形式。配置元数据（configurateion metedata）</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clnybgns80000i2k6dwhmgqnk" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clnyod4w600009xk6ey7kg9ay" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
