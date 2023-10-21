@@ -20,8 +20,10 @@
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/mvnIoc.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/BeanFactory.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/ApplicationContext.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/iocProc.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/container-magic.png">
 <meta property="article:published_time" content="2023-10-20T07:24:51.000Z">
-<meta property="article:modified_time" content="2023-10-20T13:56:32.542Z">
+<meta property="article:modified_time" content="2023-10-21T02:42:02.099Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -132,12 +134,26 @@
 <li>ApplicationContext<img src="/blog/2023/10/20/IocContainer/ApplicationContext.png" class></li>
 </ol>
 <h3 id="3-Beans"><a href="#3-Beans" class="headerlink" title="3. Beans"></a>3. Beans</h3><p>在Spring中,构成应用骨架的对象或者被Spring Ioc容器管理的对象称为beans.</p>
-<h1 id="二、容器简介（Container-Overview）"><a href="#二、容器简介（Container-Overview）" class="headerlink" title="二、容器简介（Container Overview）"></a>二、容器简介（Container Overview）</h1><p>org.springframework.context.ApplicationContext 接口代表了Spring Ioc容器，并且负责实例化beans,配置bean,集成(assemble)。容器通过读取配置元数据(configuration metedata)来获取一些指令，这些指令主要是指明需要实例化哪个对象，配置哪个对象以及集成（assemble）哪个对象。配置元数据（configuration metedata）的形式有三种，第一，xml文件形式，第二，java注解形式，第三，java代码形式。配置元数据（configurateion metedata）</p>
+<h1 id="二、容器简介（Container-Overview）"><a href="#二、容器简介（Container-Overview）" class="headerlink" title="二、容器简介（Container Overview）"></a>二、容器简介（Container Overview）</h1><p>org.springframework.context.ApplicationContext 接口代表了Spring Ioc容器，并且负责实例化beans,配置bean,集成(assemble)。容器通过读取配置元数据(configuration metedata)来获取一些指令，这些指令主要是指明需要实例化哪个对象，配置哪个对象以及集成（assemble）哪个对象。</p>
+<p>配置元数据（configuration metedata）的形式有三种，</p>
+<ul>
+<li>第一，xml文件形式，</li>
+<li>第二，java注解形式，</li>
+<li>第三，java代码形式。</li>
+</ul>
+<p>配置元数据（configurateion metedata）陈述了对象，这些对象构成了你的应用，同时也陈述了对象之间丰富的相互依赖的关系。</p>
+<p>以下是xml形式：</p>
+<img src="/blog/2023/10/20/IocContainer/iocProc.png" class>
+
+<p>Container的作用</p>
+<img src="/blog/2023/10/20/IocContainer/container-magic.png" class>
+
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clnyod4w600009xk6ey7kg9ay" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clnzfslby00009pk685eb2v6n" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
