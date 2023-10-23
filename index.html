@@ -138,12 +138,92 @@
 <p>Container的作用</p>
 <img src="/blog/2023/10/20/IocContainer/container-magic.png" class>
 
+<h1 id="三、Bean简介"><a href="#三、Bean简介" class="headerlink" title="三、Bean简介"></a>三、Bean简介</h1><p> Ioc容器管理一个或多个Bean。这些Bean被配置元数据管理(例如被xml文件定义)。在容器本身中，这些bean的定义作为BeanDefinition对象，此类对象包含以下元数据：</p>
+<ul>
+<li>全类名（含包结构）</li>
+<li>Bean行为配置元素</li>
+<li>对其他bean的引用</li>
+<li>其他配置</li>
+</ul>
+<p>这些元数据被转换成一系列的属性，这些属性构成了每个bean的定义。<br>以下是bean的定义</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Explain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Class</td>
+<td>实例化bean</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>命名bean</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Bean的作用范围</td>
+</tr>
+<tr>
+<td>Constructor arguments</td>
+<td>构造参数形式的依赖注入</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>set方式的依赖注入</td>
+</tr>
+<tr>
+<td>Autowiring mode</td>
+<td>自动装配</td>
+</tr>
+<tr>
+<td>Lazy initialzation mode</td>
+<td>懒加载</td>
+</tr>
+<tr>
+<td>Initialization method</td>
+<td>实例化方法</td>
+</tr>
+<tr>
+<td>Destruction method</td>
+<td>销毁方法</td>
+</tr>
+</tbody></table>
+<p>ApplicationContext除了拥有包含如何创建bean的信息，它也允许容器外部的，由用户创建的已经存在的对象被注册。这个功能是由ApplicationContext的BeanFactory通过getBeanFactory方法实现的。它返回DefaultListableBeanFactory的实现方法。但是不太常用。</p>
+<h2 id="3-1-Naming-Beans-命名bean"><a href="#3-1-Naming-Beans-命名bean" class="headerlink" title="3.1 Naming Beans (命名bean)"></a>3.1 Naming Beans (命名bean)</h2><p>每一个bean都有一个或多个身份。这些身份在容器中必须是独一无二的。一个bean通常只有一个身份。但是如果他需要多个，就需要考虑使用aliases标签。<br>在基于xml的配置元数据中，你通常使用id标签，name标签，或者两者同时使用来指定一个bean的身份。<br>id标签指定了一个确切的ID。你也可以通过name标签来命名多个名字，他们通过（,）(;)或者空格相隔开。id标签的独一性是由容器来控制的，xml的语法仅仅定义了id的类型是string。<br>你不需要强制的为bean提供name标签或者id标签。此时，容器会为bean分配一个唯一的名字。<br>如果在多个子系统中存在相同名字的bean时，此时需要用到alias标签为bean起个别名。如下示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">&quot;fromName&quot;</span> <span class="attr">alias</span>=<span class="string">&quot;toName&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">&quot;myApp-dataSource&quot;</span> <span class="attr">alias</span>=<span class="string">&quot;subsystemA-dataSource&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">&quot;myApp-dataSource&quot;</span> <span class="attr">alias</span>=<span class="string">&quot;subsystemB-dataSource&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-Instantiating-Beans-实例化bean"><a href="#3-2-Instantiating-Beans-实例化bean" class="headerlink" title="3.2 Instantiating Beans(实例化bean)"></a>3.2 Instantiating Beans(实例化bean)</h2><p>一个Bean的定义主要是创建对象的一个参考，就想做菜需要一个食谱一样。<br>如果你使用基于xml形式的配置元数据，你指定对象的类型实在bean标签下的class标签中。<br>你可以有两种方法使用class属性：</p>
+<ol>
+<li>主要的，容器调用bean的构造器来创建<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;exampleBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;examples.ExampleBean&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;anotherExample&quot;</span> <span class="attr">class</span>=<span class="string">&quot;examples.ExampleBeanTwo&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>使用工厂<ul>
+<li>指定bean的静态工厂来创建对象<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;clientService&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">class</span>=<span class="string">&quot;examples.ClientService&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">factory-method</span>=<span class="string">&quot;createInstance&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+静态工厂<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClientService</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ClientService</span> <span class="variable">clientService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClientService</span>();</span><br><span class="line">	<span class="keyword">private</span> <span class="title function_">ClientService</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ClientService <span class="title function_">createInstance</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> clientService;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用工厂实例方法<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- the factory bean, which contains a method called createClientServiceInstance() --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;serviceLocator&quot;</span> <span class="attr">class</span>=<span class="string">&quot;examples.DefaultServiceLocator&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- inject any dependencies required by this locator bean --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- the bean to be created via the factory bean --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;clientService&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">factory-bean</span>=<span class="string">&quot;serviceLocator&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">factory-method</span>=<span class="string">&quot;createClientServiceInstance&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultServiceLocator</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ClientService</span> <span class="variable">clientService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClientServiceImpl</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> ClientService <span class="title function_">createClientServiceInstance</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> clientService;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultServiceLocator</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ClientService</span> <span class="variable">clientService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClientServiceImpl</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">AccountService</span> <span class="variable">accountService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AccountServiceImpl</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> ClientService <span class="title function_">createClientServiceInstance</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> clientService;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> AccountService <span class="title function_">createAccountServiceInstance</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> accountService;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h1 id="四、Dependencies-依赖"><a href="#四、Dependencies-依赖" class="headerlink" title="四、Dependencies(依赖)"></a>四、Dependencies(依赖)</h1><p>一个典型的企业应用不只包含一个单一的对象(bean)。甚至最简单的应用都有一些对象一起协作来呈现最终用户看到的效果。本部分解释了这些bean是符合一起协作的。</p>
+<h2 id="4-1-Denpendencies-Injection-依赖注入"><a href="#4-1-Denpendencies-Injection-依赖注入" class="headerlink" title="4.1 Denpendencies Injection(依赖注入)"></a>4.1 Denpendencies Injection(依赖注入)</h2><p>依赖注入(DI)是一个过程，此过程中对象定义了他们的依赖(其他一起协作的对象)。<br>这样代码会更简洁。解耦是更有效率的，当对象和他的依赖一起被提供的时候。</p>
+<h3 id="4-1-1-Constructor-based-Dependency-Injection-基于构造器的依赖注入"><a href="#4-1-1-Constructor-based-Dependency-Injection-基于构造器的依赖注入" class="headerlink" title="4.1.1 Constructor-based Dependency Injection(基于构造器的依赖注入)"></a>4.1.1 Constructor-based Dependency Injection(基于构造器的依赖注入)</h3><p>Constructor-based DI 是由容器出发构造器完成的。和调用静态工厂方法是相同的。<br>案例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleMovieLister</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// the SimpleMovieLister has a dependency on a MovieFinder</span></span><br><span class="line">    <span class="comment">// SimpleMovieLister有一个movieFinder依赖</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> MovieFinder movieFinder;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// a constructor so that the Spring container can inject a MovieFinder</span></span><br><span class="line">    <span class="comment">// 构造器，Spring容器可以通过此构造器进行依赖注入</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">SimpleMovieLister</span><span class="params">(MovieFinder movieFinder)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.movieFinder = movieFinder;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// business logic that actually uses the injected MovieFinder is omitted...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-Constructor-Argument-Resolution-构造器参数的解决方法"><a href="#4-1-2-Constructor-Argument-Resolution-构造器参数的解决方法" class="headerlink" title="4.1.2 Constructor Argument Resolution(构造器参数的解决方法)"></a>4.1.2 Constructor Argument Resolution(构造器参数的解决方法)</h3><p>案例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> x.y;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThingOne</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">ThingOne</span><span class="params">(ThingTwo thingTwo, ThingThree thingThree)</span> &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;beanOne&quot;</span> <span class="attr">class</span>=<span class="string">&quot;x.y.ThingOne&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">&quot;beanTwo&quot;</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">&quot;beanThree&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;beanTwo&quot;</span> <span class="attr">class</span>=<span class="string">&quot;x.y.ThingTwo&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;beanThree&quot;</span> <span class="attr">class</span>=<span class="string">&quot;x.y.ThingThree&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-3-Setter-based-Dependency-Injection-基于set方法的依赖注入"><a href="#4-1-3-Setter-based-Dependency-Injection-基于set方法的依赖注入" class="headerlink" title="4.1.3 Setter-based Dependency Injection(基于set方法的依赖注入)"></a>4.1.3 Setter-based Dependency Injection(基于set方法的依赖注入)</h3><p>此方式的依赖注入是由Spring容器先触发无参构造器或者静态工厂的无参方法实例化bean后调用set方法设置其对应的属性。<br>案例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleMovieLister</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// the SimpleMovieLister has a dependency on the MovieFinder</span></span><br><span class="line">	<span class="keyword">private</span> MovieFinder movieFinder;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// a setter method so that the Spring container can inject a MovieFinder</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMovieFinder</span><span class="params">(MovieFinder movieFinder)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.movieFinder = movieFinder;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// business logic that actually uses the injected MovieFinder is omitted...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clnzfslby00009pk685eb2v6n" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo2e8nkw0000lh05gpd7hn61" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -200,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clnzfslc000019pk69e0tcrx2" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo2e8nky0001lh056ikg02et" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -370,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clnzfslc200059pk6hml9ccxd" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo2e8nl00005lh0500ev0z16" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -643,7 +723,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clnzfslc200049pk65lmefzdd" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clo2e8nl00004lh055tnl8qfd" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -966,7 +1046,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clnzfslc200039pk6cnrpfrlp" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo2e8nl00003lh0589do873p" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1017,7 +1097,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clnzfslc100029pk6f1n0g2pt" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo2e8nkz0002lh0581k00oib" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
