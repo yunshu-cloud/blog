@@ -138,6 +138,16 @@
 <p>Container的作用</p>
 <img src="/blog/2023/10/20/IocContainer/container-magic.png" class>
 
+<h2 id="2-1-容器实现"><a href="#2-1-容器实现" class="headerlink" title="2.1 容器实现"></a>2.1 容器实现</h2><ol>
+<li><p>流程</p>
+<img src="/blog/2023/10/20/IocContainer/selfContainer.png" class>
+</li>
+<li><p>结构</p>
+<img src="/blog/2023/10/20/IocContainer/structureContainer.png" class>
+</li>
+<li><p>具体实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yunshu.springioc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 容器类，负责管理对象，在类加载时，读取配置文件并创建对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Container</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> Map&lt;String,Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">static</span> &#123;</span><br><span class="line">         <span class="comment">// 读取配置文件</span></span><br><span class="line">         <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> Container.class.getClassLoader().getResourceAsStream(<span class="string">&quot;bean.properties&quot;</span>);</span><br><span class="line">         <span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             properties.load(is);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">             <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="comment">// 遍历配置文件中的所有对象</span></span><br><span class="line">         Enumeration&lt;Object&gt; keys = properties.keys();</span><br><span class="line"></span><br><span class="line">         <span class="keyword">while</span>(keys.hasMoreElements())&#123;</span><br><span class="line">             <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> keys.nextElement().toString();</span><br><span class="line">             <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> properties.getProperty(key);</span><br><span class="line"></span><br><span class="line">             <span class="comment">// 创建对象</span></span><br><span class="line">             <span class="keyword">try</span> &#123;</span><br><span class="line">                 <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> Class.forName(value).newInstance();</span><br><span class="line"></span><br><span class="line">                 <span class="comment">// 将对象放入map集合中</span></span><br><span class="line">                 map.put(key,o);</span><br><span class="line">             &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                 <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 获取map集合中的对象</span></span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">getBean</span><span class="params">(String key)</span>&#123;</span><br><span class="line">         <span class="keyword">return</span> map.get(key);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
 <h1 id="三、Bean简介"><a href="#三、Bean简介" class="headerlink" title="三、Bean简介"></a>三、Bean简介</h1><p> Ioc容器管理一个或多个Bean。这些Bean被配置元数据管理(例如被xml文件定义)。在容器本身中，这些bean的定义作为BeanDefinition对象，此类对象包含以下元数据：</p>
 <ul>
 <li>全类名（含包结构）</li>
@@ -227,7 +237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo2qt3rq0000dxk60gpp5w6c" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo3zg4mm0000ek05cclhh2fj" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -284,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo2qt3rs0001dxk612l9erje" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo3zg4mp0001ek05c57lfe9c" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -454,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo2qt3ru0005dxk6614laa3o" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo3zg4mr0005ek05bk9adinp" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -727,7 +737,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clo2qt3ru0004dxk6flu04k6i" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clo3zg4mq0004ek05dddtcibi" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1050,7 +1060,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo2qt3rt0003dxk66tkyf1im" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo3zg4mq0003ek055bapfc0x" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1101,7 +1111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo2qt3rt0002dxk66rkzg2jv" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo3zg4mp0002ek056t4l2c3e" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
