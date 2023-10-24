@@ -4,23 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>hasCodeAndEquals | Blog of WangZhixiong</title>
+  <title>bean的生命周期 | Blog of WangZhixiong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="equals方法和hasCode方法之间的关系equals方法  hasCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同">
+  <meta name="description" content="生产—&gt;使用—&gt;销毁   一、生产 其中主要createBean比较复杂，分为四小步：  createBeanInstance 创建bean对象 获取构造方法  用反射机制从”Bean定义”中的BeanClass拿到这个类的构造方法（一个bean中最好不要写多个构造方法，否则此处选取构造方法容易出错） 准备参数  如果 构造方法有参数，在单例池中 先根据参数类型匹配，如果有多个实例，再">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hasCodeAndEquals">
-<meta property="og:url" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/index.html">
+<meta property="og:title" content="bean的生命周期">
+<meta property="og:url" content="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/index.html">
 <meta property="og:site_name" content="Blog of WangZhixiong">
-<meta property="og:description" content="equals方法和hasCode方法之间的关系equals方法  hasCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同">
+<meta property="og:description" content="生产—&gt;使用—&gt;销毁   一、生产 其中主要createBean比较复杂，分为四小步：  createBeanInstance 创建bean对象 获取构造方法  用反射机制从”Bean定义”中的BeanClass拿到这个类的构造方法（一个bean中最好不要写多个构造方法，否则此处选取构造方法容易出错） 准备参数  如果 构造方法有参数，在单例池中 先根据参数类型匹配，如果有多个实例，再">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/equals.png">
-<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/hasCode.png">
-<meta property="article:published_time" content="2023-10-18T05:54:32.000Z">
-<meta property="article:modified_time" content="2023-10-18T06:37:09.779Z">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/beanLife.png">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/produce.png">
+<meta property="article:published_time" content="2023-10-24T13:53:55.000Z">
+<meta property="article:modified_time" content="2023-10-24T14:55:44.506Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/equals.png">
+<meta name="twitter:image" content="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/beanLife.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="Blog of WangZhixiong" type="application/atom+xml">
   
@@ -83,10 +83,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-hasCodeAndEquals" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-bean的生命周期" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/blog/2023/10/18/hasCodeAndEquals/" class="article-date">
-  <time class="dt-published" datetime="2023-10-18T05:54:32.000Z" itemprop="datePublished">2023-10-18</time>
+    <a href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T13:53:55.000Z" itemprop="datePublished">2023-10-24</time>
 </a>
     
   </div>
@@ -97,7 +97,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      hasCodeAndEquals
+      bean的生命周期
     </h1>
   
 
@@ -105,30 +105,34 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="equals方法和hasCode方法之间的关系"><a href="#equals方法和hasCode方法之间的关系" class="headerlink" title="equals方法和hasCode方法之间的关系"></a>equals方法和hasCode方法之间的关系</h1><h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/equals.png" class>
+        <p>生产—&gt;使用—&gt;销毁</p>
+<img src="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/beanLife.png" class>
 
-<h3 id="hasCode方法"><a href="#hasCode方法" class="headerlink" title="hasCode方法"></a>hasCode方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/hasCode.png" class>
-
-<ul>
-<li>A. <ul>
-<li>只要equals方法没有被重写，同一个对象的hasCode值就不会有变化</li>
-<li>同一个对象，hasCode值不保证在不同执行情况下结果相同</li>
+<h1 id="一、生产"><a href="#一、生产" class="headerlink" title="一、生产"></a>一、生产</h1><img src="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/produce.png" class>
+<p>其中主要createBean比较复杂，分为四小步：</p>
+<ol>
+<li>createBeanInstance 创建bean对象<ul>
+<li>获取构造方法<br>  用反射机制从”Bean定义”中的BeanClass拿到这个类的构造方法（一个bean中最好不要写多个构造方法，否则此处选取构造方法容易出错）</li>
+<li>准备参数<br>  如果 构造方法有参数，在单例池中 先根据参数类型匹配，如果有多个实例，再根据参数名称匹配</li>
+<li>构造对象<br> 通过反射实例化对象</li>
 </ul>
 </li>
-<li>B. <ul>
-<li>只要equals方法判断两个对象相同，他们的hasCode值必然相同</li>
+<li>populateBean 填充bean对象<ul>
+<li>通过三级缓存机制进行填充，也就是依赖注入</li>
 </ul>
 </li>
-<li>C.<ul>
-<li>两个对象不相同时，不保证他们的hasCode值一定不同</li>
+<li>initializeBean 初始化bean对象<ul>
+<li>初始化容器相关信息<br>  通过invokeAwareMethods为实现各种Aware接口的Bean设置诸如beanName、beanFactory等容器信息</li>
+<li>执行初始化方法<br>  通过invokeInitMethods方法</li>
 </ul>
 </li>
-</ul>
+<li>registerDisposableBean 注册可销毁的bean对象</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo4h2jqy0002ock696brdzaq" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" data-id="clo4h2jqw0000ock6bnuf7g5h" data-title="bean的生命周期" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -138,19 +142,10 @@
     
 <nav id="article-nav">
   
-    <a href="/blog/2023/10/20/IocContainer/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          IocContainer
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2023/09/22/rabbitmq/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2023/10/20/IocContainer/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">rabbitmq</div>
+      <div class="article-nav-title">IocContainer</div>
     </a>
   
 </nav>

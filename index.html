@@ -80,6 +80,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-bean的生命周期" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T13:53:55.000Z" itemprop="datePublished">2023-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">bean的生命周期</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>生产—&gt;使用—&gt;销毁</p>
+<img src="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/beanLife.png" class>
+
+<h1 id="一、生产"><a href="#一、生产" class="headerlink" title="一、生产"></a>一、生产</h1><img src="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/produce.png" class>
+<p>其中主要createBean比较复杂，分为四小步：</p>
+<ol>
+<li>createBeanInstance 创建bean对象<ul>
+<li>获取构造方法<br>  用反射机制从”Bean定义”中的BeanClass拿到这个类的构造方法（一个bean中最好不要写多个构造方法，否则此处选取构造方法容易出错）</li>
+<li>准备参数<br>  如果 构造方法有参数，在单例池中 先根据参数类型匹配，如果有多个实例，再根据参数名称匹配</li>
+<li>构造对象<br> 通过反射实例化对象</li>
+</ul>
+</li>
+<li>populateBean 填充bean对象<ul>
+<li>通过三级缓存机制进行填充，也就是依赖注入</li>
+</ul>
+</li>
+<li>initializeBean 初始化bean对象<ul>
+<li>初始化容器相关信息<br>  通过invokeAwareMethods为实现各种Aware接口的Bean设置诸如beanName、beanFactory等容器信息</li>
+<li>执行初始化方法<br>  通过invokeInitMethods方法</li>
+</ul>
+</li>
+<li>registerDisposableBean 注册可销毁的bean对象</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" data-id="clo4h2jqw0000ock6bnuf7g5h" data-title="bean的生命周期" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-IocContainer" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blog/2023/10/20/IocContainer/" class="article-date">
@@ -237,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo44lsjk0001ykk6d1ar28mw" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo4h2jr00006ock68i4hfchn" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -294,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo44lsji0000ykk65bfqgfgi" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo4h2jqy0002ock696brdzaq" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -464,7 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo44lsjl0004ykk6fa7ud415" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo4h2jr00005ock64q7yec2k" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -737,7 +798,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clo44lsjk0002ykk6f97uctmj" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clo4h2jqz0004ock65tay8j3h" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1060,7 +1121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo44lsjl0003ykk62dhyf4x1" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo4h2jqz0003ock6gkmra297" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1111,7 +1172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo44lsjm0005ykk6awx9gqrt" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo4h2jqy0001ock63b7edsg3" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1154,6 +1215,10 @@
       <ul>
         
           <li>
+            <a href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">bean的生命周期</a>
+          </li>
+        
+          <li>
             <a href="/blog/2023/10/20/IocContainer/">IocContainer</a>
           </li>
         
@@ -1167,10 +1232,6 @@
         
           <li>
             <a href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2023/09/07/jvm-memory-model/">jvm调优</a>
           </li>
         
       </ul>
