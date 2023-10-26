@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>hasCodeAndEquals | Blog of WangZhixiong</title>
+  <title>hashCodeAndEquals | Blog of WangZhixiong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="equals方法和hasCode方法之间的关系equals方法  hasCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同">
+  <meta name="description" content="equals方法和hashCode方法之间的关系equals方法  hashCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同    为什么要使">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hasCodeAndEquals">
+<meta property="og:title" content="hashCodeAndEquals">
 <meta property="og:url" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/index.html">
 <meta property="og:site_name" content="Blog of WangZhixiong">
-<meta property="og:description" content="equals方法和hasCode方法之间的关系equals方法  hasCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同">
+<meta property="og:description" content="equals方法和hashCode方法之间的关系equals方法  hashCode方法   A.  只要equals方法没有被重写，同一个对象的hasCode值就不会有变化 同一个对象，hasCode值不保证在不同执行情况下结果相同   B.  只要equals方法判断两个对象相同，他们的hasCode值必然相同   C. 两个对象不相同时，不保证他们的hasCode值一定不同    为什么要使">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/equals.png">
 <meta property="og:image" content="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/hasCode.png">
 <meta property="article:published_time" content="2023-10-18T05:54:32.000Z">
-<meta property="article:modified_time" content="2023-10-18T06:37:09.779Z">
+<meta property="article:modified_time" content="2023-10-26T07:07:02.244Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -97,7 +97,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      hasCodeAndEquals
+      hashCodeAndEquals
     </h1>
   
 
@@ -105,9 +105,9 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="equals方法和hasCode方法之间的关系"><a href="#equals方法和hasCode方法之间的关系" class="headerlink" title="equals方法和hasCode方法之间的关系"></a>equals方法和hasCode方法之间的关系</h1><h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/equals.png" class>
+        <h1 id="equals方法和hashCode方法之间的关系"><a href="#equals方法和hashCode方法之间的关系" class="headerlink" title="equals方法和hashCode方法之间的关系"></a>equals方法和hashCode方法之间的关系</h1><h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/equals.png" class>
 
-<h3 id="hasCode方法"><a href="#hasCode方法" class="headerlink" title="hasCode方法"></a>hasCode方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/hasCode.png" class>
+<h3 id="hashCode方法"><a href="#hashCode方法" class="headerlink" title="hashCode方法"></a>hashCode方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/hasCode.png" class>
 
 <ul>
 <li>A. <ul>
@@ -124,11 +124,23 @@
 </ul>
 </li>
 </ul>
+<h3 id="为什么要使用hashCode"><a href="#为什么要使用hashCode" class="headerlink" title="为什么要使用hashCode?"></a>为什么要使用hashCode?</h3><p>举例HashSet检查重复</p>
+<ul>
+<li>set是无序不重复的结构，当要加入一个元素时，要先判断他是否重复，若重复则不添加，若不重复则添加。<br>此时用到hasCode可以提高判断是否重复的效率。<br>其过程如下</li>
+</ul>
+<ol>
+<li>先计算一个对象的hashCode值，通过值来判断对象加入到HashSet的位置,判断该位置是否有值</li>
+<li><ul>
+<li>如果该位置没有值，表示该对象在HashSet中没有出现重复；</li>
+<li>如果该位置有值，不表示两个对象一定重复，应为hashCode本质上来说是取模运算，简单理解为 取除法后的余数 就是hash值 （ 10%3&#x3D;1  4%3&#x3D;1  hash值一样但是10与4不同），此时就需要调用Object的equals()方法判断两个对象是否重复。<br>总结： hashCode的使用是为了减少equals()方法的调用来提高效率</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo5bkept00027305gsr11qke" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo6udgsz0002fbk6bsn3fr6k" data-title="hashCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -188,6 +200,10 @@
       <ul>
         
           <li>
+            <a href="/blog/2023/10/25/HighPerformanceMysql/">HighPerformanceMysql</a>
+          </li>
+        
+          <li>
             <a href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">bean的生命周期</a>
           </li>
         
@@ -196,15 +212,11 @@
           </li>
         
           <li>
-            <a href="/blog/2023/10/18/hasCodeAndEquals/">hasCodeAndEquals</a>
+            <a href="/blog/2023/10/18/hasCodeAndEquals/">hashCodeAndEquals</a>
           </li>
         
           <li>
             <a href="/blog/2023/09/22/rabbitmq/">rabbitmq</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
           </li>
         
       </ul>

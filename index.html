@@ -80,6 +80,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-HighPerformanceMysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/10/25/HighPerformanceMysql/" class="article-date">
+  <time class="dt-published" datetime="2023-10-25T13:43:36.000Z" itemprop="datePublished">2023-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/2023/10/25/HighPerformanceMysql/">HighPerformanceMysql</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="第一章-MySQL的体系结构和历史-Chapter-1-MySql-Architure-and-History"><a href="#第一章-MySQL的体系结构和历史-Chapter-1-MySql-Architure-and-History" class="headerlink" title="第一章 MySQL的体系结构和历史 Chapter 1 MySql Architure and History"></a>第一章 MySQL的体系结构和历史 Chapter 1 MySql Architure and History</h1><p>MySQL的逻辑结构<br>MySQL’s Logical Architecture </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/25/HighPerformanceMysql/" data-id="clo6udgsw0000fbk6fcoheuf8" data-title="HighPerformanceMysql" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-bean的生命周期" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="article-date">
@@ -129,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" data-id="clo5bkepx00057305h59eaorb" data-title="bean的生命周期" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" data-id="clo6udgsz0003fbk659or9xmh" data-title="bean的生命周期" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -298,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo5bkepq00007305e31g0i4q" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/20/IocContainer/" data-id="clo6udgsy0001fbk60oy20pg7" data-title="IocContainer" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -324,7 +363,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/2023/10/18/hasCodeAndEquals/">hasCodeAndEquals</a>
+      <a class="p-name article-title" href="/blog/2023/10/18/hasCodeAndEquals/">hashCodeAndEquals</a>
     </h1>
   
 
@@ -332,9 +371,9 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="equals方法和hasCode方法之间的关系"><a href="#equals方法和hasCode方法之间的关系" class="headerlink" title="equals方法和hasCode方法之间的关系"></a>equals方法和hasCode方法之间的关系</h1><h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/equals.png" class>
+        <h1 id="equals方法和hashCode方法之间的关系"><a href="#equals方法和hashCode方法之间的关系" class="headerlink" title="equals方法和hashCode方法之间的关系"></a>equals方法和hashCode方法之间的关系</h1><h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/equals.png" class>
 
-<h3 id="hasCode方法"><a href="#hasCode方法" class="headerlink" title="hasCode方法"></a>hasCode方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/hasCode.png" class>
+<h3 id="hashCode方法"><a href="#hashCode方法" class="headerlink" title="hashCode方法"></a>hashCode方法</h3><img src="/blog/2023/10/18/hasCodeAndEquals/hasCode.png" class>
 
 <ul>
 <li>A. <ul>
@@ -351,11 +390,23 @@
 </ul>
 </li>
 </ul>
+<h3 id="为什么要使用hashCode"><a href="#为什么要使用hashCode" class="headerlink" title="为什么要使用hashCode?"></a>为什么要使用hashCode?</h3><p>举例HashSet检查重复</p>
+<ul>
+<li>set是无序不重复的结构，当要加入一个元素时，要先判断他是否重复，若重复则不添加，若不重复则添加。<br>此时用到hasCode可以提高判断是否重复的效率。<br>其过程如下</li>
+</ul>
+<ol>
+<li>先计算一个对象的hashCode值，通过值来判断对象加入到HashSet的位置,判断该位置是否有值</li>
+<li><ul>
+<li>如果该位置没有值，表示该对象在HashSet中没有出现重复；</li>
+<li>如果该位置有值，不表示两个对象一定重复，应为hashCode本质上来说是取模运算，简单理解为 取除法后的余数 就是hash值 （ 10%3&#x3D;1  4%3&#x3D;1  hash值一样但是10与4不同），此时就需要调用Object的equals()方法判断两个对象是否重复。<br>总结： hashCode的使用是为了减少equals()方法的调用来提高效率</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo5bkept00027305gsr11qke" data-title="hasCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/10/18/hasCodeAndEquals/" data-id="clo6udgsz0002fbk6bsn3fr6k" data-title="hashCodeAndEquals" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -525,7 +576,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo5bkepw000473058yn27jli" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/22/rabbitmq/" data-id="clo6udgt10007fbk6eir2a8eg" data-title="rabbitmq" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -537,9 +588,9 @@
 
 
   
-    <article id="post-mysqlOptimize" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-mysql优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/blog/2023/09/17/mysqlOptimize/" class="article-date">
+    <a href="/blog/2023/09/17/mysql%E4%BC%98%E5%8C%96/" class="article-date">
   <time class="dt-published" datetime="2023-09-17T09:40:30.000Z" itemprop="datePublished">2023-09-17</time>
 </a>
     
@@ -551,7 +602,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
+      <a class="p-name article-title" href="/blog/2023/09/17/mysql%E4%BC%98%E5%8C%96/">Mysql优化</a>
     </h1>
   
 
@@ -599,7 +650,7 @@
 <li><blockquote>
 <p>explain select * from his_care_history hch left join his_care_order hco on hco.patient_name &#x3D; hch.patient_name </p>
 </blockquote>
-<img src="/blog/2023/09/17/mysqlOptimize/explain.png" class title="explain">
+
 <table>
 <thead>
 <tr>
@@ -798,7 +849,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysqlOptimize/" data-id="clo5bkepx000673059t3m599u" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/17/mysql%E4%BC%98%E5%8C%96/" data-id="clo6udgt10006fbk69ygr2m9d" data-title="Mysql优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1121,7 +1172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo5bkepw000373051oa3dz3f" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/jvm-memory-model/" data-id="clo6udgt00004fbk6giq07v8h" data-title="jvm调优" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1172,7 +1223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo5bkeps00017305c2wy6yit" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="clo6udgt00005fbk6f7wu3s1d" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1215,6 +1266,10 @@
       <ul>
         
           <li>
+            <a href="/blog/2023/10/25/HighPerformanceMysql/">HighPerformanceMysql</a>
+          </li>
+        
+          <li>
             <a href="/blog/2023/10/24/bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">bean的生命周期</a>
           </li>
         
@@ -1223,15 +1278,11 @@
           </li>
         
           <li>
-            <a href="/blog/2023/10/18/hasCodeAndEquals/">hasCodeAndEquals</a>
+            <a href="/blog/2023/10/18/hasCodeAndEquals/">hashCodeAndEquals</a>
           </li>
         
           <li>
             <a href="/blog/2023/09/22/rabbitmq/">rabbitmq</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2023/09/17/mysqlOptimize/">Mysql优化</a>
           </li>
         
       </ul>
