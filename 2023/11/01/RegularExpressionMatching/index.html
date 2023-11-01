@@ -13,11 +13,14 @@
 <meta property="og:site_name" content="Blog of WangZhixiong">
 <meta property="og:description" content="一、问题描述Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where: ‘.’ Matches any single character.​​​​‘*’ Matches zero or more of the preceding">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/rem1.jpeg">
+<meta property="og:image" content="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/rem.MP4">
 <meta property="article:published_time" content="2023-11-01T05:55:40.000Z">
-<meta property="article:modified_time" content="2023-11-01T06:01:08.661Z">
+<meta property="article:modified_time" content="2023-11-01T06:59:00.849Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/rem1.jpeg">
   
     <link rel="alternate" href="/blog/atom.xml" title="Blog of WangZhixiong" type="application/atom+xml">
   
@@ -108,22 +111,33 @@
 <p>Input: s &#x3D; “aa”, p &#x3D; “a”<br>Output: false<br>Explanation: “a” does not match the entire string “aa”.<br>Example 2:</p>
 <p>Input: s &#x3D; “aa”, p &#x3D; “a*”<br>Output: true<br>Explanation: ‘*’ means zero or more of the preceding element, ‘a’. Therefore, by repeating ‘a’ once, it becomes “aa”.<br>Example 3:</p>
 <p>Input: s &#x3D; “ab”, p &#x3D; “.<em>“<br>Output: true<br>Explanation: “.</em>“ means “zero or more (*) of any character (.)”.</p>
-<h1 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h1><ul>
+<h1 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h1><ol>
 <li>‘*’的含义： 可以来代替前一个字符，表示零个，一个或者多个  <ul>
 <li>a*–&gt;<ul>
-<li>空</li>
+<li>空字符(要留意)</li>
 <li>a</li>
 <li>aa</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
+<li>‘.’的含义： 可以用来代替任意一个字符</li>
+</ol>
+<h1 id="三、举例"><a href="#三、举例" class="headerlink" title="三、举例"></a>三、举例</h1><ol>
+<li><p>初始化 使用二维数组记录不同字符串和匹配字符的匹配情况（是否成功匹配 成功–T  失败–F）<br>s字符串为 xaabyc<br>p模式匹配为  xa*b.c</p>
+<img src="/blog/2023/11/01/RegularExpressionMatching/rem1.jpeg" class>
+</li>
+<li><p>匹配过程</p>
+<img src="/blog/2023/11/01/RegularExpressionMatching/rem.MP4" class title="匹配过程模拟"></li>
+</ol>
+<h1 id="四、算法"><a href="#四、算法" class="headerlink" title="四、算法"></a>四、算法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isMatch</span><span class="params">(String s, String p)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s == <span class="literal">null</span> || p == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span>[][] T = <span class="keyword">new</span> <span class="title class_">boolean</span>[s.length()+<span class="number">1</span>][p.length()+<span class="number">1</span>];</span><br><span class="line">        T[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>; <span class="comment">// 0字符 0匹配字符 表示可以匹配</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; p.length(); i++)&#123; <span class="comment">// 初始化第一行  0字符的匹配 布尔值 ---&gt; a*b*c* 等可以匹配 0字符</span></span><br><span class="line">            <span class="keyword">if</span>(p.charAt(i) == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">                T[<span class="number">0</span>][i+<span class="number">1</span>] = T[<span class="number">0</span>][i-<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i= <span class="number">0</span>; i &lt; s.length();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; p.length(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(p.charAt(j) == <span class="string">&#x27;.&#x27;</span> || p.charAt(j) ==  s.charAt(i))&#123;</span><br><span class="line">                    T[i+<span class="number">1</span>][j+<span class="number">1</span>] = T[i][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(j) == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">                    T[i+<span class="number">1</span>][j+<span class="number">1</span>] = T[i+<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(p.charAt(j-<span class="number">1</span>) == s.charAt(i) || p.charAt(j-<span class="number">1</span>) == <span class="string">&#x27;.&#x27;</span>)&#123;</span><br><span class="line">                        T[i+<span class="number">1</span>][j+<span class="number">1</span>] = T[i+<span class="number">1</span>][j+<span class="number">1</span>] | T[i][j+<span class="number">1</span>];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> T[s.length()+<span class="number">1</span>][p.length()+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/" data-id="clofcnpo00001qg051mhf3rcd" data-title="RegularExpressionMatching" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/" data-id="clofeqn9m000398050xrodiqb" data-title="RegularExpressionMatching" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
