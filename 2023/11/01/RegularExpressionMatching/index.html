@@ -6,15 +6,15 @@
   
   <title>RegularExpressionMatching | Blog of WangZhixiong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where: ‘.’ Matches any single character.​​​​‘*’ Matches zero or more of the preceding elemen">
+  <meta name="description" content="一、问题描述Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where: ‘.’ Matches any single character.​​​​‘*’ Matches zero or more of the preceding">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RegularExpressionMatching">
 <meta property="og:url" content="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/index.html">
 <meta property="og:site_name" content="Blog of WangZhixiong">
-<meta property="og:description" content="Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where: ‘.’ Matches any single character.​​​​‘*’ Matches zero or more of the preceding elemen">
+<meta property="og:description" content="一、问题描述Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where: ‘.’ Matches any single character.​​​​‘*’ Matches zero or more of the preceding">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-01T05:55:40.000Z">
-<meta property="article:modified_time" content="2023-11-01T05:56:35.221Z">
+<meta property="article:modified_time" content="2023-11-01T06:01:08.661Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -102,17 +102,28 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where:</p>
+        <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><p>Given an input string s and a pattern p, implement regular expression matching with support for ‘.’ and ‘*’ where:</p>
 <p>‘.’ Matches any single character.​​​​<br>‘*’ Matches zero or more of the preceding element.<br>The matching should cover the entire input string (not partial).</p>
 <p>Example 1:</p>
 <p>Input: s &#x3D; “aa”, p &#x3D; “a”<br>Output: false<br>Explanation: “a” does not match the entire string “aa”.<br>Example 2:</p>
 <p>Input: s &#x3D; “aa”, p &#x3D; “a*”<br>Output: true<br>Explanation: ‘*’ means zero or more of the preceding element, ‘a’. Therefore, by repeating ‘a’ once, it becomes “aa”.<br>Example 3:</p>
 <p>Input: s &#x3D; “ab”, p &#x3D; “.<em>“<br>Output: true<br>Explanation: “.</em>“ means “zero or more (*) of any character (.)”.</p>
+<h1 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h1><ul>
+<li>‘*’的含义： 可以来代替前一个字符，表示零个，一个或者多个  <ul>
+<li>a*–&gt;<ul>
+<li>空</li>
+<li>a</li>
+<li>aa</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/" data-id="clofchwf30002np0570pqam05" data-title="RegularExpressionMatching" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/11/01/RegularExpressionMatching/" data-id="clofcnpo00001qg051mhf3rcd" data-title="RegularExpressionMatching" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
