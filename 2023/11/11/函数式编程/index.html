@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hello World | Blog of WangZhixiong</title>
+  <title>函数式编程 | Blog of WangZhixiong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="一、Lambda介绍Lambda简介Lambda表达式是java8的新特性，可以取代大部分的匿名内部类，简化代码，尤其是在集合的遍历和其他操作中，可以优化代码结构。Lambda表达式可以对函数式接口中的函数进行简单的实现，整个Lambda表达式就是函数式接口（下文解释） 函数式接口只有一个抽象方法的接口称为函数式接口，可以用@FunctionInterface注解修饰，此注解限制了接口中添加其他抽">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://yunshucloud.github.io/blog/2023/09/07/hello-world/index.html">
+<meta property="og:title" content="函数式编程">
+<meta property="og:url" content="https://yunshucloud.github.io/blog/2023/11/11/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Blog of WangZhixiong">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="一、Lambda介绍Lambda简介Lambda表达式是java8的新特性，可以取代大部分的匿名内部类，简化代码，尤其是在集合的遍历和其他操作中，可以优化代码结构。Lambda表达式可以对函数式接口中的函数进行简单的实现，整个Lambda表达式就是函数式接口（下文解释） 函数式接口只有一个抽象方法的接口称为函数式接口，可以用@FunctionInterface注解修饰，此注解限制了接口中添加其他抽">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-09-07T13:54:00.000Z">
-<meta property="article:modified_time" content="2023-09-07T13:54:00.000Z">
+<meta property="article:published_time" content="2023-11-11T03:38:22.000Z">
+<meta property="article:modified_time" content="2023-11-11T03:45:17.560Z">
 <meta property="article:author" content="WangZhixiong">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -80,10 +80,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-函数式编程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/blog/2023/09/07/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-09-07T13:54:00.000Z" itemprop="datePublished">2023-09-07</time>
+    <a href="/blog/2023/11/11/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T03:38:22.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   </div>
@@ -94,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Hello World
+      函数式编程
     </h1>
   
 
@@ -102,24 +102,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        <h1 id="一、Lambda介绍"><a href="#一、Lambda介绍" class="headerlink" title="一、Lambda介绍"></a>一、Lambda介绍</h1><h2 id="Lambda简介"><a href="#Lambda简介" class="headerlink" title="Lambda简介"></a>Lambda简介</h2><p>Lambda表达式是java8的新特性，可以取代大部分的匿名内部类，简化代码，尤其是在集合的遍历和其他操作中，可以优化代码结构。<br>Lambda表达式可以对函数式接口中的函数进行简单的实现，整个Lambda表达式就是函数式接口（下文解释）</p>
+<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>只有一个抽象方法的接口称为函数式接口，可以用@FunctionInterface注解修饰，此注解限制了接口中添加其他抽象方法，但不显示默认default修饰的方法。</p>
+<h2 id="Lambda案例"><a href="#Lambda案例" class="headerlink" title="Lambda案例"></a>Lambda案例</h2><p>无参无返回值的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 无返回值，无参数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">NoReturnNoParam</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yunshucloud.github.io/blog/2023/09/07/hello-world/" data-id="cloti7ka60003jdk6fxls6qsx" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://yunshucloud.github.io/blog/2023/11/11/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="cloti7ka80009jdk6flkbejzy" data-title="函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -129,15 +119,11 @@
     
 <nav id="article-nav">
   
-    <a href="/blog/2023/09/07/jvm-memory-model/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          jvm调优
-        
-      </div>
-    </a>
   
+    <a href="/blog/2023/11/01/RegularExpressionMatching/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RegularExpressionMatching</div>
+    </a>
   
 </nav>
 
